@@ -35,6 +35,18 @@ describe('dotenv-expand', function () {
       done()
     })
 
+    it('expands variables with dots', function (done) {
+      const dotenv = {
+        parsed: {
+          'VARIABLE.WITH.DOTS': 'value'
+        }
+      }
+      const obj = dotenvExpand.expand(dotenv).parsed
+
+      obj['VARIABLE.WITH.DOTS'].should.eql('value')
+      done()
+    })
+
     it('expands environment variables existing already on the machine', function (done) {
       process.env.MACHINE = 'machine'
       const dotenv = {
